@@ -1,10 +1,12 @@
+require('dotenv').config();
 const express= require('express');
 const router=express.Router();
 const mongoose= require('mongoose');
 const User = mongoose.model("User");
 const bcrypt = require('bcryptjs');
-
-router.get('/',(req, res)=>{
+const jwt = require('jsonwebtoken');
+const requireLogin = require('../middleware/requiredLogin')
+router.get('/proc',requireLogin,(req, res)=>{
     res.send("hello")
 })
 
@@ -54,7 +56,9 @@ router.post('/signin', (req, res)=>{
         bcrypt.compare(password,savedUser.password)
         .then(match => {
             if(match){
-                res.json({message:"Succesfully Signed In"})
+                const token=jwt.sign({_id:savedUser._id},process.env.JWT_SECRET)          //to get the access token to the user.
+                res.json({token})                                   
+                // res.json({message:"Succesfully Signed In"})
             }else{
                 return res.status(422).json({error:"Invalid details"})
             }
