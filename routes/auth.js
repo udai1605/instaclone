@@ -58,7 +58,8 @@ router.post('/signin', (req, res)=>{
         .then(match => {
             if(match){
                 const token=jwt.sign({_id:savedUser._id},process.env.JWT_SECRET)          //to get the access token to the user.
-                res.json({token})                                   
+                const{_id,name,email}=savedUser
+                res.json({token,user:{_id,name,email}})                                   
                 // res.json({message:"Succesfully Signed In"})
             }else{
                 return res.status(422).json({error:"Invalid details"})

@@ -10,7 +10,7 @@ const Home=()=>{
                     <img src="https://petapixel.com/assets/uploads/2019/02/mooncompositemain-800x800.jpg" alt="post"/>
                 </div>
                 <div className="card-content">
-                <i class="material-icons" style={{color:"red"}}>favorite</i>
+                <i className="material-icons" style={{color:"red"}}>favorite</i>
                     <h6>title</h6>
                     <p>this is my first post</p>
                     <input type="text" placeholder="Comment"/>
@@ -22,7 +22,7 @@ const Home=()=>{
                     <img src="https://petapixel.com/assets/uploads/2019/02/mooncompositemain-800x800.jpg" alt="post"/>
                 </div>
                 <div className="card-content">
-                <i class="material-icons" style={{color:"red"}}>favorite</i>
+                <i className="material-icons" style={{color:"red"}}>favorite</i>
                     <h6>title</h6>
                     <p>this is my first post</p>
                     <input type="text" placeholder="Comment"/>
