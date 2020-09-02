@@ -7,13 +7,13 @@ const CreatePost = ()=>{
     const [body,setBody] = useState("")
     const [image,setImage] = useState("")
     const [url,setUrl] = useState("")
-    useEffect(()=>{
+    useEffect(()=>{    //to store the updated url. useEffect is used when the user has succesfully posted and the url is aquired from cloudinary API
        if(url){
         fetch("/createpost",{
             method:"post",
             headers:{
                 "Content-Type":"application/json",
-                // "Authorization":"Bearer "+localStorage.getItem("jwt")
+                 "Authorization":"Bearer "+localStorage.getItem("jwt")
             },
             body:JSON.stringify({
                 title,
@@ -48,6 +48,7 @@ const CreatePost = ()=>{
        .then(res=>res.json())
        .then(data=>{
           setUrl(data.url)
+          
        })
        .catch(err=>{
            console.log(err)

@@ -1,34 +1,66 @@
-import React from 'react';
+import React, { useEffect, createContext, useReducer,useContext } from 'react';
 import NavBar from './components/navbar.js'
 import './App.css';
-import { BrowserRouter, Route } from 'react-router-dom'
+import { BrowserRouter, Route, Switch, useHistory } from 'react-router-dom'
 import Home from './components/screens/Home'
 import Signin from './components/screens/Signin'
 import Profile from './components/screens/Profile'
 import Signup from './components/screens/Signup'
 import CreatePost from './components/screens/CreatePost'
+import { reducer, initialState } from './reducers/userReducer'
 
-function App() {
+
+export const UserContext = createContext()
+
+
+
+const Routing = () => {     //to make sure atleast one route is active switch is used.
+  const history = useHistory()
+  const {state,dispatch} = useContext(UserContext)
+  useEffect(()=>{
+    const user = JSON.parse(localStorage.getItem("user"))
+    if(user){                                   //to prevent access without signin or signup
+      dispatch({type:"USER",payload:user})
+      history.push('/')
+    }else{
+      
+      history.push('/signin')
+    }
+  },[])
   return (
-    <BrowserRouter>
-      <NavBar />
+    <Switch>
       <Route exact path='/'>
-        <Home/>
+        <Home />
 
       </Route>
       <Route path='/signin'>
-        <Signin/>
+        <Signin />
       </Route>
       <Route path='/signup'>
         <Signup />
       </Route>
       <Route path='/profile'>
-        <Profile/>
+        <Profile />
       </Route>
       <Route path='/CreatePost'>
-        <CreatePost/>
+        <CreatePost />
       </Route>
-    </BrowserRouter>
+    </Switch>
+
+  )
+}
+
+
+
+function App() {
+  const [state, dispatch] = useReducer(reducer, initialState)
+  return (
+    <UserContext.Provider value={{ state, dispatch }}>
+      <BrowserRouter>
+        <NavBar />
+        <Routing />
+      </BrowserRouter>
+    </UserContext.Provider>
 
   );
 }
