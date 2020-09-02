@@ -21,7 +21,7 @@ const Routing = () => {     //to make sure atleast one route is active switch is
     const user = JSON.parse(localStorage.getItem("user"))
     if(user){                                   //to prevent access without signin or signup
       dispatch({type:"USER",payload:user})
-      history.push('/')
+      // history.push('/')
     }else{
       
       history.push('/signin')

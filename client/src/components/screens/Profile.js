@@ -1,7 +1,20 @@
-import React from 'react';
-
+import React, {useEffect,useState,useContext} from 'react';
+import {UserContext} from '../../App'
 
 const Profile = () => {
+    const [mypics,setPics] = useState([])
+    const {state,dispatch} = useContext(UserContext)
+    useEffect(()=>{
+        fetch('/mypost',{
+            headers:{
+                "Authorization":"Bearer "+localStorage.getItem("jwt")
+            }
+        }).then(res=>res.json())
+        .then(result=>{
+            console.log(result)
+            setPics(result.mypost)
+        })
+     },[])
     return (
         <div style={{maxWidth:"550px",margin:"0px auto"}}>
             
@@ -11,7 +24,7 @@ const Profile = () => {
 
                 </div>
                 <div>
-                    <h4>Udai kiran</h4>
+                    <h4>{state?state.name:"loading"}</h4>
                     <div style={{ display:"flex",justifyContent:"space-between",width:"108%"}}>
                         <h5>0 posts</h5>
                         <h5>0 followers</h5>
@@ -20,11 +33,16 @@ const Profile = () => {
                 </div>
             </div>
             <div className="gallery">
-                <img className="item" src="https://images.unsplash.com/photo-1542362567-b07e54358753?ixlib=rb-1.2.1&w=1000&q=80" alt="gallery"/>
-                <img className="item" src="https://images.unsplash.com/photo-1542362567-b07e54358753?ixlib=rb-1.2.1&w=1000&q=80" alt="gallery"/>
-                <img className="item" src="https://images.unsplash.com/photo-1542362567-b07e54358753?ixlib=rb-1.2.1&w=1000&q=80" alt="gallery"/>
-                <img className="item" src="https://images.unsplash.com/photo-1542362567-b07e54358753?ixlib=rb-1.2.1&w=1000&q=80" alt="gallery"/>
-                <img className="item" src="https://images.unsplash.com/photo-1542362567-b07e54358753?ixlib=rb-1.2.1&w=1000&q=80" alt="gallery"/>
+                {
+                    mypics.map(item =>{
+                        return(
+                            <img key={item._id} className="item" src={item.photo} alt={item.title}/>
+
+                        )
+                    })
+                }
+                
+                
 
             </div>
         </div>
