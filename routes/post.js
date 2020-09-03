@@ -8,7 +8,7 @@ const Post= mongoose.model('Post');
 
 router.get('/allpost',(req,res) => {
     Post.find()
-    .populate("postedBy","_id name")     //to show the user details without sending just objectId
+    .populate("postedBy","_id name pic")     //to show the user details without sending just objectId
     .populate("comments.postedBy","_id name")
     .then(posts =>{
         res.json({posts})

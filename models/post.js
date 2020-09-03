@@ -19,7 +19,7 @@ const postSchema = new mongoose.Schema({
     }],
     postedBy:{
         type:ObjectId,
-        ref:"User"
-    }
+        ref:"User",
+    },
 })
 mongoose.model("Post",postSchema)
