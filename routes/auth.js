@@ -12,7 +12,7 @@ const requireLogin = require('../middleware/requiredLogin')
 // })
 
 router.post('/signup',(req, res)=>{
-    const {name,email,password} = req.body
+    const {name,email,password,pic} = req.body
     if(!email|| !password|| !name){
         return res.status(422).json({error:"please add all fields"}) //to make the server understand that its a error and dont process it 
     }                                                          // 422 is an unprocessable entity
@@ -26,7 +26,8 @@ router.post('/signup',(req, res)=>{
             const user= new User({
                 email,
                 password:hashedpassword,
-                name
+                name,
+                pic
             })
             user.save()
             .then(user => {
@@ -58,8 +59,8 @@ router.post('/signin', (req, res)=>{
         .then(match => {
             if(match){
                 const token=jwt.sign({_id:savedUser._id},process.env.JWT_SECRET)          //to get the access token to the user.
-                const{_id,name,email}=savedUser
-                res.json({token,user:{_id,name,email}})                                   
+                const{_id,name,email,followers,following,pic}=savedUser
+                res.json({token,user:{_id,name,email,followers,following,pic}})                                   
                 // res.json({message:"Succesfully Signed In"})
             }else{
                 return res.status(422).json({error:"Invalid details"})

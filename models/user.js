@@ -10,7 +10,12 @@ const userSchema = new mongoose.Schema({
     },password:{
         type:String,
         required:true
-    },followers:[{type:ObjectId,ref:"User"}],
+    },
+    pic:{
+        type:String,
+        default:"https://res.cloudinary.com/udai/image/upload/v1599102690/nopic_p9nr7c.png"
+    },
+    followers:[{type:ObjectId,ref:"User"}],
     following:[{type:ObjectId,ref:"User"}]
 })
 

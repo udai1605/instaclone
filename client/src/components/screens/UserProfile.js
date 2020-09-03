@@ -4,10 +4,10 @@ import { useParams } from 'react-router-dom'
 
 const Profile = () => {
     const [userProfile, setProfile] = useState(null)
-    const [showfollow, setShowFollow] = useState( true)
+    
     const { state, dispatch } = useContext(UserContext)
     const { userid } = useParams()
-
+    const [showfollow,setShowFollow] = useState(state?!state.following.includes(userid):true)
     useEffect(() => {
         fetch(`/user/${userid}`, {
             headers: {
@@ -21,60 +21,62 @@ const Profile = () => {
             })
     }, [])
 
-    const followUser = () => {
-        fetch('/follow', {
-            method: "put",
-            headers: {
-                "Content-Type": "application/json",
-                "Authorization": "Bearer " + localStorage.getItem('jwt')
+    const followUser = ()=>{
+        fetch('/follow',{
+            method:"put",
+            headers:{
+                "Content-Type":"application/json",
+                "Authorization":"Bearer "+localStorage.getItem('jwt')
             },
-            body: JSON.stringify({
-                followId: userid
+            body:JSON.stringify({
+                followId:userid
             })
-        }).then(res => res.json())
-            .then(data => {
-                dispatch({ type: "UPDATE", payload: { following: data.following, followers: data.followers } })
-                // console.log(data);
-                localStorage.setItem("user", JSON.stringify(data));
-                setProfile((prevState) => {
-                    return {
-                        ...prevState,
-                        user: {
-                            ...prevState.user,
-                            followers: [...prevState.user.followers, data._id]
+        }).then(res=>res.json())
+        .then(data=>{
+        
+            dispatch({type:"UPDATE",payload:{following:data.following,followers:data.followers}})
+             localStorage.setItem("user",JSON.stringify(data))
+             setProfile((prevState)=>{
+                 return {
+                     ...prevState,
+                     user:{
+                         ...prevState.user,
+                         followers:[...prevState.user.followers,data._id]
                         }
-                    }
-                })
-                setShowFollow(false)
-            })
+                 }
+             })
+             setShowFollow(false)
+        })
     }
-    const unfollowUser = () => {
-        fetch('/unfollow', {
-            method: "put",
-            headers: {
-                "Content-Type": "application/json",
-                "Authorization": "Bearer " + localStorage.getItem('jwt')
+    const unfollowUser = ()=>{
+        fetch('/unfollow',{
+            method:"put",
+            headers:{
+                "Content-Type":"application/json",
+                "Authorization":"Bearer "+localStorage.getItem('jwt')
             },
-            body: JSON.stringify({
-                followId: userid
+            body:JSON.stringify({
+                unfollowId:userid
             })
-        }).then(res => res.json())
-            .then(data => {
-                dispatch({ type: "UPDATE", payload: { following: data.following, followers: data.followers } })
-                // console.log(data);
-                localStorage.setItem("user", JSON.stringify(data));
-                setProfile((prevState) => {
-                    const newFollower = prevState.user.followers.filter(item=>item!==data._id)
-                    return {
-                        ...prevState,
-                        user: {
-                            ...prevState.user,
-                            followers: newFollower
+        }).then(res=>res.json())
+        .then(data=>{
+            
+            dispatch({type:"UPDATE",payload:{following:data.following,followers:data.followers}})
+             localStorage.setItem("user",JSON.stringify(data))
+            
+             setProfile((prevState)=>{
+                const newFollower = prevState.user.followers.filter(item=>item != data._id )
+                 return {
+                     ...prevState,
+                     user:{
+                         ...prevState.user,
+                         followers:newFollower
                         }
-                    }
-                })
-                
-            })
+                 }
+             })
+             setShowFollow(true)
+             
+        })
     }
     return (
         <>
@@ -83,7 +85,7 @@ const Profile = () => {
 
                     <div style={{ display: "flex", justifyContent: "space-around", margin: "18px 0px", borderBottom: "1px solid grey" }}>
                         <div >
-                            <img style={{ width: "160px", height: "160px", borderRadius: "80px" }} src="https://i.pinimg.com/originals/50/19/a4/5019a45312310170736410ee0361e942.jpg" alt="Profile Pic" />
+                            <img style={{ width: "160px", height: "160px", borderRadius: "80px" }} src={userProfile.user.pic} alt="Profile Pic" />
 
                         </div>
                         <div>

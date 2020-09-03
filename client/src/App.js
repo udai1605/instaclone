@@ -8,6 +8,7 @@ import Profile from './components/screens/Profile'
 import Signup from './components/screens/Signup'
 import CreatePost from './components/screens/CreatePost'
 import UserProfile from './components/screens/UserProfile'
+import FollowingUserPosts from './components/screens/followedUserPost'
 import { reducer, initialState } from './reducers/userReducer'
 
 
@@ -48,6 +49,9 @@ const Routing = () => {     //to make sure atleast one route is active switch is
       </Route>
       <Route path="/profile/:userid">
        <UserProfile />
+      </Route>
+      <Route path="/myfollowingpost">
+       <FollowingUserPosts />
       </Route>
     </Switch>
 
