@@ -1,6 +1,7 @@
 const jwt = require('jsonwebtoken')
 const mongoose = require('mongoose');
 const User=mongoose.model('User')
+const {JWT_SECRET} = require('../config/keys')
 
 module.exports =(req,res,next) => {
     const {authorization}=req.headers;
@@ -8,7 +9,7 @@ module.exports =(req,res,next) => {
         res.status(401).json({error:"You Are Unauthorized"})
     }
     const token= authorization.replace("Bearer ","")
-    jwt.verify(token,process.env.JWT_SECRET,(err,payload)=>{
+    jwt.verify(token,JWT_SECRET,(err,payload)=>{
         if(err){
             return res.status(401).json({error:" You Are UnAuthorized"})
         }
