@@ -11,7 +11,7 @@ const Home = () => {
             }
         }).then(res => res.json())
             .then(result => {
-                console.log(result)
+                // console.log(result)
                 setData(result.posts)
             })
     }, [])
@@ -143,8 +143,9 @@ const Home = () => {
                                 <p>{item.body}</p>
                                 {
                                     item.comments.map(record=>{
+                                        // console.log(record);
                                         return(
-                                            <h6 key={record._id}><span style={{fontWeight:"500"}}>{record.postedBy.name}</span> <span> : </span>{record.text}</h6>
+                                         <h6 key={record._id}><span style={{fontWeight:"500"}}>{record.postedBy.name}</span> <span> : </span>{record.text}</h6>
                                         )
                                     })
                                 }

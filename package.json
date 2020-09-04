@@ -2,10 +2,13 @@
   "name": "instagramclone",
   "version": "1.0.0",
   "description": "this is done using MERN stack",
+  "engines": {
+    "node": "12.16.3"
+  },
   "main": "app.js",
   "scripts": {
-   "start": "node app.js",
-   "heroku-postbuild":"NPM_CONFIG_PRODUCTION=false npm install --prefix client && npm run build --prefix client"
+    "start": "node app.js",
+    "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install --prefix client && npm run build --prefix client"
   },
   "author": "UDAIKIRAN",
   "license": "ISC",
@@ -16,6 +19,8 @@
     "jsonwebtoken": "^8.5.1",
     "materialize-css": "^1.0.0-rc.2",
     "mongoose": "^5.10.2",
+    "nodemailer": "^6.4.11",
+    "nodemailer-sendgrid-transport": "^0.2.0",
     "react-router-dom": "^5.2.0"
   }
 }

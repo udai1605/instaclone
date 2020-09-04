@@ -10,6 +10,7 @@ router.get('/allpost',(req,res) => {
     Post.find()
     .populate("postedBy","_id name pic")     //to show the user details without sending just objectId
     .populate("comments.postedBy","_id name")
+    .sort('-createdAt')
     .then(posts =>{
         res.json({posts})
     })
@@ -67,13 +68,16 @@ router.put('/like',requireLogin,(req,res) =>{            //to update the like an
         $push:{likes:req.user._id}         //to push into likes array 
     },{
         new:true                        //to send back the new updated array back
-    }).exec((err,result)=>{
+    }).populate("comments.postedBy","_id name")
+    .populate("postedBy","_id name pic")
+    .exec((err,result)=>{
         if(err){
             return res.status(422).json({error:err})
         }else{
             res.json(result)
         }
     })
+   
 })
 
 router.put('/unlike',requireLogin,(req,res)=>{
@@ -81,13 +85,17 @@ router.put('/unlike',requireLogin,(req,res)=>{
         $pull:{likes:req.user._id}  //to remove user from like array
     },{
         new:true
-    }).exec((err,result)=>{
+    })
+    .populate("comments.postedBy","_id name")
+    .populate("postedBy","_id name pic")
+    .exec((err,result)=>{
         if(err){
             return res.status(422).json({error:err})
         }else{
             res.json(result)
         }
     })
+    
 })
 
 router.put('/comment',requireLogin,(req,res)=>{
@@ -101,7 +109,7 @@ router.put('/comment',requireLogin,(req,res)=>{
         new:true
     })
     .populate("comments.postedBy","_id name")
-    .populate("postedBy","_id name")
+    .populate("postedBy","_id name pic")
     .exec((err,result)=>{
         if(err){
             return res.status(422).json({error:err})
