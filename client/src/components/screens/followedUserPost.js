@@ -112,7 +112,13 @@ const Home = () => {
                 data.map(item => {
                     return (
                         <div className="card home-card" key={item._id}>
-                            <h5><Link to={item.postedBy._id !== state._id?'/profile/'+item.postedBy._id:'/profile/'}>{item.postedBy.name}</Link>{item.postedBy._id === state._id //to make sure only the person who posted it will be able to delete it
+                            <div style={{display: "inline-block",marginLeft:"5px",padding:"10px"}}>
+                            <img
+                            style={{ width: "35px", height: "35px", borderRadius: "80px" }}
+                            src={item.postedBy.pic}
+                            alt="Profile Pic" />
+                            </div>
+                            <h5 style={{display: "inline-block",marginLeft:"8px"}}><Link to={item.postedBy._id !== state._id?'/profile/'+item.postedBy._id:'/profile/'}>{item.postedBy.name}</Link>{item.postedBy._id === state._id //to make sure only the person who posted it will be able to delete it
                             && <i className="material-icons" style={{
                                 float:"right"
                             }} onClick={()=>deletePost(item._id)} >delete</i>}</h5>
