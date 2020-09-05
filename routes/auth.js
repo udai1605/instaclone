@@ -7,7 +7,7 @@ const crypto = require('crypto');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const {JWT_SECRET} = require('../config/keys')
-const requireLogin = require('../middleware/requiredLogin')
+const {SENDGRID_API,EMAIL} = require('../config/keys')
 const nodemailer = require('nodemailer')
 const sendgridTransport = require('nodemailer-sendgrid-transport')
 // router.get('/proc',requireLogin,(req, res)=>{
@@ -16,7 +16,7 @@ const sendgridTransport = require('nodemailer-sendgrid-transport')
 // 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
 const transporter = nodemailer.createTransport(sendgridTransport({
     auth:{
-        api_key:"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"
+        api_key:SENDGRID_API
     }
 }))
 
@@ -110,7 +110,7 @@ router.post('/reset-password',(req, res) => {
                      from:"no-reply@uktech.tech",
                      subject:"password reset",
                      html:`<p>You request for password reset is here</p>
-                     <h5>click in this <a href="http://localhost:3001/reset/${token}">link</a> to reset your password</h5>`
+                     <h5>click in this <a href="${EMAIL}/reset/${token}">link</a> to reset your password</h5>`
                  })
                  res.json({message:"check your email"})
              })

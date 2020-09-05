@@ -74,7 +74,7 @@ router.put('/updatepic',requireLogin,(req,res)=>{
 
 router.post('/search-users',(req,res)=>{
     let userpattern= new RegExp("^"+req.body.query)
-    User.find({email:{$regex:userpattern}})
+    User.find({name:{$regex:userpattern}})
     .select("_id email name")
     .then(user=>{
         res.json({user})

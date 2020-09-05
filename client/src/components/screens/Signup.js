@@ -86,7 +86,7 @@ useEffect(() => {
         <div className="mycard">
             <div className="card auth-card input-field">
                 <h2 className="brand-logo">Instapeople</h2>
-                <input type="text"   placeholder="Name" value={name} onChange={(e)=>setName(e.target.value)}/>
+                <input type="text" style={{textTransform:"capitalize"}}  placeholder="Name" value={name} onChange={(e)=>setName(e.target.value)}/>
                 <input type="text"  placeholder="email" value={email} onChange={(e)=>setEmail(e.target.value)}/>
                 <input type="password"   placeholder="password" value={password} onChange={(e)=>setPassword(e.target.value)} />
                 <div className="file-field input-field">

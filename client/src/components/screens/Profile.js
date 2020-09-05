@@ -68,7 +68,7 @@ const Profile = () => {
 
     return (
         <div style={{ maxWidth: "550px", margin: "0px auto" }}>
-            <div style={{
+            <div className="profilemobile" style={{
                 margin: "18px 0px",
                 borderBottom: "1px solid grey"
             }}>
@@ -80,16 +80,16 @@ const Profile = () => {
 
                 }}>
                     <div>
-                        <img
-                            style={{ width: "160px", height: "160px", borderRadius: "80px" }}
+                        <img className="profilepic"
+                            style={{ width: "160px", height: "160px", borderRadius: "80px", margin: "0px auto" }}
                             src={state ? state.pic : "loading"}
                             alt="Profile Pic" />
                      
 
                 </div>
-                    <div>
+                    <div className="mobilefollowers">
                         <h4>{state ? state.name : "loading"}</h4>
-                        <div style={{ display: "flex", justifyContent: "space-between", width: "108%" }}>
+                        <div style={{ display: "flex", justifyContent: "space-between", width: "108%",margin:" 0 auto" }}>
                             <h5>{mypics.length} posts</h5>
                             <h5>{state ? state.followers.length : 0} followers</h5>
                             <h5>{state ? state.following.length : 0} following</h5>

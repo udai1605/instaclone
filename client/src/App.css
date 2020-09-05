@@ -49,3 +49,38 @@ a{
 .collection-item{
   width:100%;
 }
+.logout{
+  
+  color:red;
+  margin-top:14px;
+  height:30px;width:30px;
+  font-size:24px;
+  border-radius:20px;
+  border:none !important;
+  cursor: pointer;
+  text-align: center;
+}
+.navbarmobile{
+  display:none !important;
+}
+
+@media only screen and (max-width:544px) {
+  .navbar{
+    display:none;
+  }
+  nav ul a {
+    padding:0 5px !important;
+  }
+  .profilepic{
+    height:100px !important;
+    width:100px !important;
+    
+  }
+  .navbarmobile{
+    display:block !important;
+  }
+  .mobilefollowers h5{
+    font-size:18px!important;
+    
+  }
+}

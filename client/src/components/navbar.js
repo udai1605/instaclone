@@ -18,10 +18,11 @@ const NavBar =()=>{
   const renderList=()=>{
     if(state){                     //to hide buttons when user is signed in .
       return [
+        <ul key="z" className="navbar">
         <li key="1"><i data-target="modal1" className="large material-icons modal-trigger" style={{color: 'black'}}>search</i></li>,
         <li key="2"><Link to="/profile">Profile</Link></li>,
             <li key="3"><Link to='/CreatePost'>Add Post</Link></li>,
-            <li key="4"><Link to='/myfollowingpost'>following posts</Link></li>,
+            <li key="4"><Link to='/myfollowingpost'>FollowingUser Posts</Link></li>,
             <li key="5">
               <button className="btn waves-effect waves-light #64b5f6 red" 
               onClick={()=>{
@@ -33,6 +34,24 @@ const NavBar =()=>{
             
         </button>
         </li>
+        </ul>,
+
+<ul key="a" className="navbarmobile">
+<li key="b"><i data-target="modal1" className="large material-icons modal-trigger" style={{color: 'black'}}>search</i></li>,
+<li key="c"><Link to="/profile"><i className="large material-icons modal-trigger" style={{color: 'black'}}>account_circle</i></Link></li>,
+    <li key="d"><Link to='/CreatePost'><i  className="large material-icons modal-trigger" style={{color: 'black'}}>add_a_photo</i></Link></li>,
+    <li key="e"><Link to='/myfollowingpost'><i  className="large material-icons modal-trigger" style={{color: 'black'}}>public
+</i></Link></li>,
+    <li key="f">
+      <button className="logout"
+      onClick={()=>{
+        localStorage.clear()
+        dispatch({type:"CLEAR"})
+        history.push('/signin')
+      }}>
+  <i className="fa fa-sign-out"></i></button>
+</li>
+</ul>
       ]
     }else{
       return[
@@ -55,7 +74,7 @@ const NavBar =()=>{
     }).then(res=>res.json())
     .then(results=>{
       setUserDetails(results.user)
-      console.log(results)
+      // console.log(results)
     })
   }
 
@@ -75,7 +94,7 @@ const NavBar =()=>{
                  return <Link to={item._id !== state._id ? "/profile/"+item._id:'/profile'} onClick={()=>{
                    M.Modal.getInstance(searchModel.current).close()
                    setSearch('')
-                 }}><li className="collection-item">{item.name} - {item.email}</li></Link> 
+                 }}><li key={item._id} className="collection-item">{item.name} - {item.email}</li></Link> 
                })}
                
               </ul>
