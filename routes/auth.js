@@ -10,10 +10,7 @@ const {JWT_SECRET} = require('../config/keys')
 const {SENDGRID_API,EMAIL} = require('../config/keys')
 const nodemailer = require('nodemailer')
 const sendgridTransport = require('nodemailer-sendgrid-transport')
-// router.get('/proc',requireLogin,(req, res)=>{
-//     res.send("hello")
-// })
-// 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
+
 const transporter = nodemailer.createTransport(sendgridTransport({
     auth:{
         api_key:SENDGRID_API
